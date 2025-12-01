@@ -15,6 +15,9 @@ void exercice_4_5();
 void exercice_4_6();
 void exercice_4_7();
 
+// On inclut le fichier externe pour les étudiants
+void saisie_etudiants();  // depuis etudiant_bd.c
+
 int main(int argc, char* argv[]) {
     int choix;
     while(1){
@@ -35,7 +38,7 @@ int main(int argc, char* argv[]) {
             case 0: exercice_4_0(); break;
             case 1: exercice_4_1(); break;
             case 2: exercice_4_2(); break;
-            case 3: exercice_4_3(); break;
+            case 3: saisie_etudiants(); break;  // Appel à la fonction externe
             case 4: exercice_4_4(argc, argv); break;
             case 5: exercice_4_5(); break;
             case 6: exercice_4_6(); break;
@@ -61,7 +64,7 @@ void exercice_4_1(){
     printf("Num1 : "); scanf("%d",&num1);
     printf("Num2 : "); scanf("%d",&num2);
     getchar();
-    printf("Opérateur (+,-,*,/,%,&,|,~) : ");
+    printf("Opérateur (+,-,*,/,%%,&,|,~) : "); // échappement du %
     scanf("%c",&op);
     int res;
     switch(op){
@@ -82,32 +85,22 @@ void exercice_4_1(){
 void exercice_4_2(){ 
     int c; char nom[100], message[256];
     printf("1: Lire 2: Écrire : "); scanf("%d",&c); getchar();
-    if(c==1){ printf("Nom fichier : "); fgets(nom,sizeof(nom),stdin); nom[strcspn(nom,"\n")]=0; lire_fichier(nom);}
-    else if(c==2){ printf("Nom fichier : "); fgets(nom,sizeof(nom),stdin); nom[strcspn(nom,"\n")]=0;
-                   printf("Message : "); fgets(message,sizeof(message),stdin); message[strcspn(message,"\n")]=0;
-                   ecrire_dans_fichier(nom,message);}
+    if(c==1){ 
+        printf("Nom fichier : "); fgets(nom,sizeof(nom),stdin); 
+        nom[strcspn(nom,"\n")]=0; 
+        lire_fichier(nom);
+    }
+    else if(c==2){ 
+        printf("Nom fichier : "); fgets(nom,sizeof(nom),stdin); 
+        nom[strcspn(nom,"\n")]=0;
+        printf("Message : "); fgets(message,sizeof(message),stdin); 
+        message[strcspn(message,"\n")]=0;
+        ecrire_dans_fichier(nom,message);
+    }
     else printf("Choix invalide\n");
 }
 
-// Exercice 4.3
-void exercice_4_3(){
-    etudiant tab[5];
-    for(int i=0;i<5;i++){
-        printf("Etudiant %d:\nNom: ",i+1); scanf("%s",tab[i].nom);
-        printf("Prenom: "); scanf("%s",tab[i].prenom); getchar();
-        printf("Adresse: "); fgets(tab[i].adresse,sizeof(tab[i].adresse),stdin); tab[i].adresse[strcspn(tab[i].adresse,"\n")]=0;
-        printf("Note1: "); scanf("%f",&tab[i].note1);
-        printf("Note2: "); scanf("%f",&tab[i].note2); getchar();
-    }
-    FILE* f=fopen("etudiant.txt","w");
-    if(!f){printf("Impossible de créer fichier\n"); return;}
-    for(int i=0;i<5;i++)
-        fprintf(f,"%s %s %s %.2f %.2f\n",tab[i].nom,tab[i].prenom,tab[i].adresse,tab[i].note1,tab[i].note2);
-    fclose(f);
-    printf("Données enregistrées dans etudiant.txt\n");
-}
-
-// Les autres exercices (4.4 à 4.7) sont à compléter par toi
+// Les autres exercices restent à compléter
 void exercice_4_4(int argc, char* argv[]){ printf("Exercice 4.4 à compléter\n"); }
 void exercice_4_5(){ printf("Exercice 4.5 à compléter\n"); }
 void exercice_4_6(){ printf("Exercice 4.6 à compléter\n"); }
