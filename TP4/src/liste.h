@@ -2,23 +2,24 @@
 #define LISTE_H
 
 // Structure pour une couleur
-struct couleur {
+typedef struct couleur {
     unsigned char r, g, b, a;
-};
+} couleur;
 
-// Structure pour la liste de couleurs (chaînée)
-struct noeud {
-    struct couleur c;
+// Noeud de la liste chaînée
+typedef struct noeud {
+    couleur c;
     struct noeud* suivant;
-};
+} noeud;
 
-struct liste_couleurs {
-    struct noeud* tete;
-};
+// Liste de couleurs
+typedef struct liste_couleurs {
+    noeud* tete;
+} liste_couleurs;
 
-// Fonctions
-void init_liste(struct liste_couleurs* l);
-void insertion(struct couleur* c, struct liste_couleurs* l);
-void parcours(struct liste_couleurs* l);
+// Prototypes
+void init_liste(liste_couleurs* l);
+void insertion(couleur* c, liste_couleurs* l);
+void parcours(liste_couleurs* l);
 
 #endif
