@@ -7,17 +7,18 @@ void init_liste(liste_couleurs *liste) {
 }
 
 void insertion(couleur *c, liste_couleurs *liste) {
-    couleur *nouveau = (couleur*)malloc(sizeof(couleur));
-    *nouveau = *c;
-    nouveau->suivant = liste->tete;
-    liste->tete = nouveau;
+    noeud *n = (noeud*)malloc(sizeof(noeud));
+    if(!n) return;
+    n->c = *c;
+    n->suivant = liste->tete;
+    liste->tete = n;
 }
 
 void parcours(liste_couleurs *liste) {
-    couleur *courant = liste->tete;
-    while (courant) {
-        printf("%02X %02X %02X %02X\n", courant->r, courant->g, courant->b, courant->a);
+    noeud *courant = liste->tete;
+    while(courant) {
+        printf("Couleur: R=%d G=%d B=%d A=%d\n",
+               courant->c.r, courant->c.g, courant->c.b, courant->c.a);
         courant = courant->suivant;
     }
 }
-
